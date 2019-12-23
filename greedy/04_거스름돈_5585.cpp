@@ -1,11 +1,11 @@
 #include <iostream> 
-using namespace std; // ³Ê¹« ½¬¿î ¹®Á¦
+using namespace std; // Â³ÃŠÂ¹Â« Â½Â¬Â¿Ã® Â¹Â®ÃÂ¦
 
 int main() {
 	int total = 1000;
 	int pay, remain;
 	cin >> pay;
-	remain = total - pay; // ÀÜµ·
+	remain = total - pay; // Ã€ÃœÂµÂ·
 	int count = 0;
 	int money[6] = { 500,100,50,10,5,1 };
 	for (int i = 0; i < 6; i++) {
