@@ -8,14 +8,14 @@ int main() {
 	vector<int>v;
 	vector<int>::iterator it;
 	greater<int> gt;
-	int n, k; // Á¾·ù, °¡°Ý
+	int n, k; // ÃÂ¾Â·Ã¹, Â°Â¡Â°Ã
 	cin >> n >> k;
 	int tmp;
 	for (int i = 0; i < n; i++) {
 		cin >> tmp;
 		v.push_back(tmp);
 	}
-	sort(v.begin(), v.end(), gt); // ³»¸²Â÷¼ø
+	sort(v.begin(), v.end(), gt); // Â³Â»Â¸Â²Ã‚Ã·Â¼Ã¸
 	int count = 0;
 	for (it = v.begin(); it != v.end(); it++) {
 		if (k / *it > 0) {
