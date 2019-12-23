@@ -8,7 +8,7 @@ int main() {
 	int *time = new int[num_person];
 	for (int i = 0; i < num_person; i++)
 		cin >> time[i];
-	sort(time, time + num_person); // ¿À¸§Â÷¼øÀ¸·Î sort
+	sort(time, time + num_person); // Â¿Ã€Â¸Â§Ã‚Ã·Â¼Ã¸Ã€Â¸Â·ÃŽ sort
 	int sum = 0;
 	for (int i = 0; i < num_person; i++) {
 		for (int j = 0; j <= i; j++) {
