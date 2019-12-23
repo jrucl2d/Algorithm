@@ -12,10 +12,10 @@ int main() {
 		cin >> tmp;
 		ropes.push_back(tmp);
 	}
-	sort(ropes.begin(),ropes.end()); // ¿À¸§Â÷¼ø Á¤·Ä, Ã¹ ¿ä¼Ò°¡ ÃÖ¼Ò
+	sort(ropes.begin(),ropes.end()); // ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬, ì²« ìš”ì†Œê°€ ìµœì†Œ
 	int max = 0;
 	for (int i = 0; i < num; i++) {
-		if (max < ropes[i] * (num - i)) max = ropes[i] * (num - i); // ÃÖ¼ÒºÎÅÍ ÇÏ³ª¾¿ ¿Ã¸®¸ç ³²Àº °³¼ö¸¦ °öÇßÀ» ¶§ ´õ Å« ¹«°Ô °¡´ÉÇÒ ¼öµµ
+		if (max < ropes[i] * (num - i)) max = ropes[i] * (num - i); // ìµœì†Œë¶€í„° í•˜ë‚˜ì”© ì˜¬ë¦¬ë©° ë‚¨ì€ ê°œìˆ˜ë¥¼ ê³±í–ˆì„ ë•Œ ë” í° ë¬´ê²Œ ê°€ëŠ¥í•  ìˆ˜ë„
 	}
 	cout << max;
 }
