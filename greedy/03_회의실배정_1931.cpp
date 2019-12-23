@@ -2,8 +2,8 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-/// ÃÖ´ëÇÑ »¡¸® ³¡³ª´Â ³ğºÎÅÍ Ã³¸® <-- »¡¸® ³¡³ª´Â ¼øÀ¸·Î Á¤·Ä ÇÊ¿ä
-/// ³¡°ú °ãÄ¡Áö ¾Ê´Â ³ğÀ¸·Î °è¼Ó ÀÌ¾î ºÙÀÓ
+/// ìµœëŒ€í•œ ë¹¨ë¦¬ ëë‚˜ëŠ” ë†ˆë¶€í„° ì²˜ë¦¬ <-- ë¹¨ë¦¬ ëë‚˜ëŠ” ìˆœìœ¼ë¡œ ì •ë ¬ í•„ìš”
+/// ëê³¼ ê²¹ì¹˜ì§€ ì•ŠëŠ” ë†ˆìœ¼ë¡œ ê³„ì† ì´ì–´ ë¶™ì„
 int main() {
 	vector<pair<int, int>>set;
 	int conferenceNum;
@@ -11,15 +11,15 @@ int main() {
 	int tmp1, tmp2;
 	for (int i = 0; i < conferenceNum; i++) {
 		cin >> tmp1 >> tmp2;
-		set.push_back(make_pair(tmp2, tmp1)); // tmp2(³¡³ª´Â ½Ã°£)·Î Á¤·Ä
+		set.push_back(make_pair(tmp2, tmp1)); // tmp2(ëë‚˜ëŠ” ì‹œê°„)ë¡œ ì •ë ¬
 	}
 	sort(set.begin(), set.end());
 	int end = set[0].first;
 	int count = 1;
 	for (int i = 1; i < conferenceNum; i++) {
-		if (set[i].second >= end) { // ´ÙÀ½ ½ÃÀÛ ÁÖ¼Ò°¡ ³¡º¸´Ù Ä¿¾ß¸¸
+		if (set[i].second >= end) { // ë‹¤ìŒ ì‹œì‘ ì£¼ì†Œê°€ ëë³´ë‹¤ ì»¤ì•¼ë§Œ
 			count++;
-			end = set[i].first; // end¸¦ °»½Å
+			end = set[i].first; // endë¥¼ ê°±ì‹ 
 		}
 	}
 	cout << count;
