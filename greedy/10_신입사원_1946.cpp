@@ -8,25 +8,25 @@ int main() {
 	int testNum;
 	cin >> testNum;
 	int num;
-	int tmp1, tmp2; // Á¡¼ö¸¦ ÀÔ·Â ¹ŞÀ½
+	int tmp1, tmp2; // ì ìˆ˜ë¥¼ ì…ë ¥ ë°›ìŒ
 	int count;
 	for (int n = 0; n < testNum; n++) {
-		test.clear(); // º¤ÅÍ ÃÊ±âÈ­
-		cin >> num; // »ç¶÷ ¼ö
-		for (int i = 0; i < num; i++) { // Á¡¼ö ÀÔ·Â
+		test.clear(); // ë²¡í„° ì´ˆê¸°í™”
+		cin >> num; // ì‚¬ëŒ ìˆ˜
+		for (int i = 0; i < num; i++) { // ì ìˆ˜ ì…ë ¥
 			cin >> tmp1 >> tmp2;
 			test.push_back(make_pair(tmp1, tmp2));
 		}
-		sort(test.begin(), test.end()); // Ã¹ ¹øÂ° Á¡¼ö·Î ¿À¸§Â÷¼ø Á¤·Ä
-		count = 1; // 1¹øÀº ¹«Á¶°Ç ÇÕ°İ
+		sort(test.begin(), test.end()); // ì²« ë²ˆì§¸ ì ìˆ˜ë¡œ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
+		count = 1; // 1ë²ˆì€ ë¬´ì¡°ê±´ í•©ê²©
 		int tmp = test[0].second;
-		for (int i = 1; i < num; i++) { // first ¼øÀ§´Â Á³Áö¸¸
-			if (test[i].second < tmp) {// second ¼øÀ§°¡ ÀÌ±â¸é ÇÕ°İ
+		for (int i = 1; i < num; i++) { // ì „ì— í•©ê²©í•œ ì‚¬ëŒë³´ë‹¤ first ìˆœìœ„ëŠ” ì¡Œì§€ë§Œ
+			if (test[i].second < tmp) {// second ìˆœìœ„ê°€ ì´ê¸°ë©´ í•©ê²©
 				count++;
-				tmp = test[i].second;
+				tmp = test[i].second; // ì „ì— ë½‘íŒ ì‚¬ëŒê³¼ ë¹„êµí•˜ë„ë¡
 			}
 		}
-		answer.push_back(count); // °á°ú push
+		answer.push_back(count); // ê²°ê³¼ push
 	}
 	for (int i = 0; i < testNum; i++)
 		cout << answer[i] << endl;
