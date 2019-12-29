@@ -7,12 +7,12 @@ int main() {
 	ios::sync_with_stdio(false);
 	string s;
 	cin >> s;
-	int ans[26]; // ¾ËÆÄºª 26°³
+	int ans[26]; // ì•ŒíŒŒë²³ 26ê°œ
 	for (int i = 0; i < 26; i++)
 		ans[i] = -1;
 	for (int i = 0; i < s.size(); i++) {
-		if (ans[s[i] - 'a'] == -1) // Ã³À½ Ã£Àº °Í¸¸ ÇØ´çµÇµµ·Ï
-			ans[s[i] - 'a'] = i; // ÇØ´ç ÀÎµ¦½ºÀÇ °ªÀ» º¯°æ
+		if (ans[s[i] - 'a'] == -1) // ì²˜ìŒ ì°¾ì€ ê²ƒë§Œ í•´ë‹¹ë˜ë„ë¡
+			ans[s[i] - 'a'] = i; // í•´ë‹¹ ì¸ë±ìŠ¤ì˜ ê°’ì„ ë³€ê²½
 	}
 	for (int i = 0; i < 26; i++)
 		cout << ans[i] << " ";
