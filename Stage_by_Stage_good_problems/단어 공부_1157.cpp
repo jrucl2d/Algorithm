@@ -9,13 +9,13 @@ int main() {
 	cin >> s;
 	int alpha[26] = { 0, };
 	for (int i = 0; i < s.size(); i++) {
-		s[i] = towlower(s[i]); // ¸ðµÎ ¼Ò¹®ÀÚ·Î º¯°æ	
+		s[i] = towlower(s[i]); // Â¸Ã°ÂµÃŽ Â¼Ã’Â¹Â®Ã€ÃšÂ·ÃŽ ÂºÂ¯Â°Ã¦	
 		alpha[s[i] - 'a']++;
 	}
 	int max = 0;
 	int maxIndex = 0;
 	for(int i = 0 ; i < 26; i++)
-		if (max < alpha[i]) { max = alpha[i]; maxIndex = i; } // max Ã£±â
+		if (max < alpha[i]) { max = alpha[i]; maxIndex = i; } // max ÃƒÂ£Â±Ã¢
 	int alone = 0;
 	for (int i = 0; i < 26; i++) {
 		if (alpha[i] == max) alone++;
