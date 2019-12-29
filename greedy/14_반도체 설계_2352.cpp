@@ -2,23 +2,23 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-// LIS ¹®Á¦
+// LIS ë¬¸ì œ
 int main() {
 	vector<int>link;
 	vector<int>lis;
 	int num;
-	scanf("%d", &num); // Æ÷Æ® ¼ö
+	scanf("%d", &num); // í¬íŠ¸ ìˆ˜
 	int tmp;
 	for (int i = 0; i < num; i++) {
 		scanf("%d", &tmp);
 		link.push_back(tmp);
 	}
-	lis.push_back(link[0]); // Ã¹ ¿ä¼Ò Áı¾î³Ö±â
+	lis.push_back(link[0]); // ì²« ìš”ì†Œ ì§‘ì–´ë„£ê¸°
 	for (int i = 1; i < num; i++) {
-		if (lis.back() < link[i]) {// linkÀÇ ÇöÀç °ªÀÌ lisÀÇ ¸¶Áö¸· °ªº¸´Ù Å©¸é
-			lis.push_back(link[i]); // ÇöÀç °ªÀ» lis¿¡ Ãß°¡
+		if (lis.back() < link[i]) {// linkì˜ í˜„ì¬ ê°’ì´ lisì˜ ë§ˆì§€ë§‰ ê°’ë³´ë‹¤ í¬ë©´
+			lis.push_back(link[i]); // í˜„ì¬ ê°’ì„ lisì— ì¶”ê°€
 		}
-		else { // linkÀÇ ÇöÀç °ªÀÌ lisÀÇ ¸¶Áö¸· °ªº¸´Ù ÀÛÀ¸¸é ±³Ã¼
+		else { // linkì˜ í˜„ì¬ ê°’ì´ lisì˜ ë§ˆì§€ë§‰ ê°’ë³´ë‹¤ ì‘ìœ¼ë©´ êµì²´
 			auto it = lower_bound(lis.begin(), lis.end(), link[i]);
 			*it = link[i];
 		}
@@ -26,5 +26,5 @@ int main() {
 			cout << lis[i] << " ";
 		cout << endl;*/
 	}
-	cout << lis.size(); // lisÀÇ »çÀÌÁî¸¦ ¸®ÅÏ
+	cout << lis.size(); // lisì˜ ì‚¬ì´ì¦ˆë¥¼ ë¦¬í„´
 }
