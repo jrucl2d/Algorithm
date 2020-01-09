@@ -6,19 +6,19 @@ using namespace std;
 int sudoku[MAX][MAX];
 vector<pair<int, int>> index;
 
-bool rowCheck(int row, int num) { // row °Ë»ç
+bool rowCheck(int row, int num) { // row ê²€ì‚¬
 	for (int i = 0; i < MAX; i++)
 		if (sudoku[row][i] == num)
 			return false;
 	return true;
 }
-bool colCheck(int col, int num) { // col °Ë»ç
+bool colCheck(int col, int num) { // col ê²€ì‚¬
 	for (int i = 0; i < MAX; i++)
 		if (sudoku[i][col] == num)
 			return false;
 	return true;
 }
-bool nineCheck(int row, int col, int num) { // 9°³ °Ë»ç
+bool nineCheck(int row, int col, int num) { // 9ê°œ ê²€ì‚¬
 	row = row / 3; col = col / 3;
 	for (int i = row * 3; i < row * 3 + 3; i++) 
 		for (int j = col * 3; j < col * 3 + 3; j++)
@@ -26,23 +26,23 @@ bool nineCheck(int row, int col, int num) { // 9°³ °Ë»ç
 				return false;
 	return true;
 }
-void dfs(int count) { // back tracking ½ÇÇà
-	if (count == index.size()) { // ºó Ä­ ¾øÀ» ¶§±îÁö
+void dfs(int count) { // back tracking ì‹¤í–‰
+	if (count == index.size()) { // ë¹ˆ ì¹¸ ì—†ì„ ë•Œê¹Œì§€
 		for (int i = 0; i < MAX; i++) {
 			for (int j = 0; j < MAX; j++) {
 				cout << sudoku[i][j] << " ";
 			}
 			cout << "\n";
 		}
-		exit(0); // Ã£À¸¸é ¾Æ¿¹ Á¾·á
+		exit(0); // ì°¾ìœ¼ë©´ ì•„ì˜ˆ ì¢…ë£Œ
 	}
-	for (int i = 1; i <= 9; i++) {
-		int a = index[count].first; // ºó Ä­ÀÇ Çà
-		int b = index[count].second; // ºó Ä­ÀÇ ¿­
-		if (rowCheck(a, i) && colCheck(b, i) && nineCheck(a, b, i)) { // ¸ðµç Á¶°Ç ¸¸Á·½Ã
-			sudoku[a][b] = i; // ÇØ´ç ¼ýÀÚ ³Ö¾îÁÜ
+	for (int i = 1; i <= 9; i++) { 
+		int a = index[count].first; // ë¹ˆ ì¹¸ì˜ í–‰
+		int b = index[count].second; // ë¹ˆ ì¹¸ì˜ ì—´
+		if (rowCheck(a, i) && colCheck(b, i) && nineCheck(a, b, i)) { // ëª¨ë“  ì¡°ê±´ ë§Œì¡±ì‹œ
+			sudoku[a][b] = i; // í•´ë‹¹ ìˆ«ìž ë„£ì–´ì¤Œ
 			dfs(count + 1);
-			sudoku[a][b] = 0; // ´ÙÀ½ °Ë»ç¸¦ À§ÇØ ´Ù½Ã ºñ¿öÁÜ
+			sudoku[a][b] = 0; // ë‹¤ìŒ ê²€ì‚¬ë¥¼ ìœ„í•´ ë‹¤ì‹œ ë¹„ì›Œì¤Œ
 		}
 	}
 }
@@ -51,7 +51,7 @@ int main() {
 	cin.tie(NULL);
 	ios::sync_with_stdio(false);
 
-	// ÀÔ·Â ¹Þ±â
+	// ìž…ë ¥ ë°›ê¸°
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < MAX; j++) {
 			cin >> sudoku[i][j];
