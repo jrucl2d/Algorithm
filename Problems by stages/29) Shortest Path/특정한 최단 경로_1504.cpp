@@ -3,46 +3,46 @@
 #include <queue>
 using namespace std;
 
-// ´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò »ç¿ë
-// µÎ Á¤Á¡ m1, m2¸¦ ¹«Á¶°Ç Áö³ª¾ß ÇÏ¹Ç·Î 1-m1-m2-n°ú 1-m2-m1-n µÑ Áß ÇÏ³ª°¡ ´ä
+// ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜ ì‚¬ìš©
+// ë‘ ì •ì  m1, m2ë¥¼ ë¬´ì¡°ê±´ ì§€ë‚˜ì•¼ í•˜ë¯€ë¡œ 1-m1-m2-nê³¼ 1-m2-m1-n ë‘˜ ì¤‘ í•˜ë‚˜ê°€ ë‹µ
 
 #define MAX 800 + 1
 #define INF 10000000
 int n, e;
-int m1, m2; // must1, must2. ¹«Á¶°Ç °ÅÃÄ¾ß ÇÏ´Â µÎ Á¤Á¡
+int m1, m2; // must1, must2. ë¬´ì¡°ê±´ ê±°ì³ì•¼ í•˜ëŠ” ë‘ ì •ì 
 
-vector<pair<int, int>>arr[MAX]; // arr[ÇöÀç]¿¡ ÀÌ¾îÁø {´ÙÀ½ Á¤Á¡±îÁöÀÇ °Å¸®, ´ÙÀ½ Á¤Á¡}
-int dist[MAX]; // ÇØ´ç index Á¤Á¡±îÁö ÃàÀûµÈ °Å¸®¸¦ ÀúÀåÇÒ ¹è¿­
+vector<pair<int, int>>arr[MAX]; // arr[í˜„ìž¬]ì— ì´ì–´ì§„ {ë‹¤ìŒ ì •ì ê¹Œì§€ì˜ ê±°ë¦¬, ë‹¤ìŒ ì •ì }
+int dist[MAX]; // í•´ë‹¹ index ì •ì ê¹Œì§€ ì¶•ì ëœ ê±°ë¦¬ë¥¼ ì €ìž¥í•  ë°°ì—´
 
 int func(int start, int end) {
-	for (int i = 0; i <= n; i++) // distÀÇ ¸ðµç ¿ä¼Ò¸¦ ¹«ÇÑ´ë·Î ÃÊ±âÈ­
+	for (int i = 0; i <= n; i++) // distì˜ ëª¨ë“  ìš”ì†Œë¥¼ ë¬´í•œëŒ€ë¡œ ì´ˆê¸°í™”
 		dist[i] = INF;
-	dist[start] = 0; // Ã³À½ ½ÃÀÛÁ¡Àº ÃàÀûµÈ °Å¸®°¡ 0
-	priority_queue<pair<int, int>>pq; // {Á¤Á¡ÀÇ °Å¸®, Á¤Á¡}À¸·Î ÀÌ·ç¾îÁø ¿ì¼±¼øÀ§ Å¥(ÃÖ´ë Èü)
-	pq.push({ 0, start }); // ½ÃÀÛ Á¤Á¡Àº °Å¸®°¡ 0ÀÌ°í Á¤Á¡Àº ÇØ´ç ½ÃÀÛ Á¤Á¡ÀÌ´Ù.
+	dist[start] = 0; // ì²˜ìŒ ì‹œìž‘ì ì€ ì¶•ì ëœ ê±°ë¦¬ê°€ 0
+	priority_queue<pair<int, int>>pq; // {ì •ì ì˜ ê±°ë¦¬, ì •ì }ìœ¼ë¡œ ì´ë£¨ì–´ì§„ ìš°ì„ ìˆœìœ„ í(ìµœëŒ€ íž™)
+	pq.push({ 0, start }); // ì‹œìž‘ ì •ì ì€ ê±°ë¦¬ê°€ 0ì´ê³  ì •ì ì€ í•´ë‹¹ ì‹œìž‘ ì •ì ì´ë‹¤.
 
 	while (!pq.empty()) {
-		// ¿ì¼±¼øÀ§ Å¥´Â ÃÖ´ë ÈüÀÎµ¥, ÃÖ¼Ò °Å¸®¸¦ ±¸ÇØ¾ß ÇÏ¹Ç·Î µÚÀÇ ÄÚµå¿¡¼­ Å¥¿¡ ³ÖÀ» ¶§ -¸¦ ºÙ¿©¼­ ³Ö´Â´Ù.
-		// µû¶ó¼­ »¬ ¶§µµ -¸¦ ³Ö¾î¼­ »©¾ß ÇÑ´Ù.
-		int beforeval = -pq.top().first; // ÇöÀçÀÇ °Å¸® °ª
-		int beforeloc = pq.top().second; // ÇöÀçÀÇ À§Ä¡
-		pq.pop(); // °ªÀ» º¯¼ö¿¡ ÀúÀåÇßÀ¸¹Ç·Î Å¥¿¡¼­ »«´Ù.
+		// ìš°ì„ ìˆœìœ„ íëŠ” ìµœëŒ€ íž™ì¸ë°, ìµœì†Œ ê±°ë¦¬ë¥¼ êµ¬í•´ì•¼ í•˜ë¯€ë¡œ ë’¤ì˜ ì½”ë“œì—ì„œ íì— ë„£ì„ ë•Œ -ë¥¼ ë¶™ì—¬ì„œ ë„£ëŠ”ë‹¤.
+		// ë”°ë¼ì„œ ëº„ ë•Œë„ -ë¥¼ ë„£ì–´ì„œ ë¹¼ì•¼ í•œë‹¤.
+		int beforeval = -pq.top().first; // í˜„ìž¬ì˜ ê±°ë¦¬ ê°’
+		int beforeloc = pq.top().second; // í˜„ìž¬ì˜ ìœ„ì¹˜
+		pq.pop(); // ê°’ì„ ë³€ìˆ˜ì— ì €ìž¥í–ˆìœ¼ë¯€ë¡œ íì—ì„œ ëº€ë‹¤.
 
-		for (int i = 0; i < arr[beforeloc].size(); i++) { // ÀÌÀü loc¿¡ ¿¬°áµÈ ¸ðµç Á¤Á¡µé¿¡ ´ëÇØ¼­
-			int nextval = arr[beforeloc][i].first; // ´ÙÀ½ Á¤Á¡±îÁöÀÇ °Å¸®
-			int nextloc = arr[beforeloc][i].second; // ´ÙÀ½ Á¤Á¡
+		for (int i = 0; i < arr[beforeloc].size(); i++) { // ì´ì „ locì— ì—°ê²°ëœ ëª¨ë“  ì •ì ë“¤ì— ëŒ€í•´ì„œ
+			int nextval = arr[beforeloc][i].first; // ë‹¤ìŒ ì •ì ê¹Œì§€ì˜ ê±°ë¦¬
+			int nextloc = arr[beforeloc][i].second; // ë‹¤ìŒ ì •ì 
 
-			// ´ÙÀ½ Á¤Á¡ ±îÁöÀÇ ±æÀÌ(Ã³À½ÀÌ¶ó INFµçÁö, ÇÑ ¹ø ±¸Çß¾î¼­ ¾î¶² °ªÀ» °¡Á³µçÁö)°¡
-			// ÇöÀç Á¤Á¡±îÁöÀÇ ±æÀÌ¿¡ ÇöÀç Á¤Á¡¿¡¼­ ´ÙÀ½ Á¤Á¡±îÁöÀÇ °Å¸®¸¦ ´õÇÑ °ªº¸´Ù ÀÛÀ¸¸é Ä¡È¯ 
-			if (dist[nextloc] > dist[beforeloc] + nextval) {
-				dist[nextloc] = dist[beforeloc] + nextval;
+			// ë‹¤ìŒ ì •ì  ê¹Œì§€ì˜ ê¸¸ì´(ì²˜ìŒì´ë¼ INFë“ ì§€, í•œ ë²ˆ êµ¬í–ˆì–´ì„œ ì–´ë–¤ ê°’ì„ ê°€ì¡Œë“ ì§€)ê°€
+			// í˜„ìž¬ ì •ì ê¹Œì§€ì˜ ê¸¸ì´ì— í˜„ìž¬ ì •ì ì—ì„œ ë‹¤ìŒ ì •ì ê¹Œì§€ì˜ ê±°ë¦¬ë¥¼ ë”í•œ ê°’ë³´ë‹¤ ìž‘ìœ¼ë©´ ì¹˜í™˜ 
+			if (dist[nextloc] > beforeval + nextval) {
+				dist[nextloc] = beforeval + nextval;
 				pq.push({ -dist[nextloc], nextloc });
 			}
 		}
 	}
-	if (dist[end] == INF) // ¸¸¾à start¿¡¼­ end±îÁöÀÇ ÀÌ¾îÁø ±æÀÌ ¾ø´Ù¸é ÃÊ±â°ª INF°¡ Ãâ·Â
+	if (dist[end] == INF) // ë§Œì•½ startì—ì„œ endê¹Œì§€ì˜ ì´ì–´ì§„ ê¸¸ì´ ì—†ë‹¤ë©´ ì´ˆê¸°ê°’ INFê°€ ì¶œë ¥
 		return -1;
-	else return dist[end]; // °ªÀÌ Á¸ÀçÇÏ¸é ±× ÃÖ¼Ò°ª Ãâ·Â
+	else return dist[end]; // ê°’ì´ ì¡´ìž¬í•˜ë©´ ê·¸ ìµœì†Œê°’ ì¶œë ¥
 }
 
 int main() {
@@ -51,30 +51,30 @@ int main() {
 
 	cin >> n >> e; 
 
-	int a, b, c; // a¿Í b°¡ ÀÌ¾îÁ®ÀÖ°í, °Å¸®´Â c
+	int a, b, c; // aì™€ bê°€ ì´ì–´ì ¸ìžˆê³ , ê±°ë¦¬ëŠ” c
 	for (int i = 0; i < e; i++) {
 		cin >> a >> b >> c;
 		arr[a].push_back({ c, b });
 		arr[b].push_back({ c, a });
 	}
 	cin >> m1 >> m2;
-	int one1 = func(1, m1); // 1-m1-m2-nÀÇ °æ¿ì
+	int one1 = func(1, m1); // 1-m1-m2-nì˜ ê²½ìš°
 	int one2 = func(m1, m2);
 	int one3 = func(m2, n);
 	bool one = true;
-	if (one1 == -1 || one2 == -1 || one3 == -1) // µµÁß¿¡ ±æÀÌ ¾øÀ¸¸é Ç¥½Ã
+	if (one1 == -1 || one2 == -1 || one3 == -1) // ë„ì¤‘ì— ê¸¸ì´ ì—†ìœ¼ë©´ í‘œì‹œ
 		one = false;
-	int two1 = func(1, m2); // 1-m2-m1-nÀÇ °æ¿ì
+	int two1 = func(1, m2); // 1-m2-m1-nì˜ ê²½ìš°
 	int two2 = func(m2, m1);
 	int two3 = func(m1, n);
 	bool two = true;
-	if (two1 == -1 || two2 == -1 || two3 == -1) // µµÁß¿¡ ±æÀÌ ¾øÀ¸¸é Ç¥½Ã
+	if (two1 == -1 || two2 == -1 || two3 == -1) // ë„ì¤‘ì— ê¸¸ì´ ì—†ìœ¼ë©´ í‘œì‹œ
 		two = false;
-	if (!one && !two) // ¾Æ¿¹ ±æÀÌ ¾øÀ¸¸é -1
+	if (!one && !two) // ì•„ì˜ˆ ê¸¸ì´ ì—†ìœ¼ë©´ -1
 		cout << -1;
-	else if (one && !two) // µÑ Áß ±æÀÌ Á¸ÀçÇÏ´Â °Í Ãâ·Â
+	else if (one && !two) // ë‘˜ ì¤‘ ê¸¸ì´ ì¡´ìž¬í•˜ëŠ” ê²ƒ ì¶œë ¥
 		cout << one1 + one2 + one3;
 	else if (!one && two)
 		cout << two1 + two2 + two3;
-	else cout << min(one1 + one2 + one3, two1 + two2 + two3); // µÑ ´Ù Á¸ÀçÇÏ¸é °¡Àå ÂªÀº °Í Ãâ·Â
+	else cout << min(one1 + one2 + one3, two1 + two2 + two3); // ë‘˜ ë‹¤ ì¡´ìž¬í•˜ë©´ ê°€ìž¥ ì§§ì€ ê²ƒ ì¶œë ¥
 }
