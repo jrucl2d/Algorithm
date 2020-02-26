@@ -6,73 +6,73 @@ using namespace std;
 #define MAX 50000 + 1
 #define INF 10000000
 
-// ´ÙÀÍ½ºÆ®¶ó »ç¿ë
-// ¿ø·¡ start-must1-must2-end¿Í start-must2-must1-end Áß ÇÏ³ª¿Í start-end°¡ °°´Ù¸é end ÈÄº¸Áö·Î ÀûÇÕÇÔÀ» ¾Ë ¼ö ÀÖ´Ù. 
-// ±×·¯³ª ÀÌ ¹æ¹ıÀº °¢ ÈÄº¸Áö¿¡ ´ëÇØ¼­ ´ÙÀÍ½ºÆ®¶ó¸¦ ¼¼ ¹ø »ç¿ëÇÑ´Ù. 
-// ¸ÚÁø Ç®ÀÌ : ¸ğµç °£¼± °¡ÁßÄ¡(°Å¸® °ª)À» µÎ ¹è·Î ÇØÁÖ°í, must1-must2ÀÇ °ªÀ» -1 ÇØÁØ´Ù. 
-// ±×·¯¸é ÈÄº¸ÁöµéÀÇ ´ÙÀÍ½ºÆ®¶ó °á°ú°ª Áß¿¡¼­ È¦¼ö°¡ ³ª¿Â °æ¿ì´Â must1-must2¸¦ Áö³­ ÈÄº¸¶ó°í º¼ ¼ö ÀÖÀ¸¹Ç·Î ´ÙÀÍ½ºÆ®¶ó¸¦ ÇÑ ¹ø »ç¿ëÇÑ´Ù.
+// ë‹¤ìµìŠ¤íŠ¸ë¼ ì‚¬ìš©
+// ì›ë˜ start-must1-must2-endì™€ start-must2-must1-end ì¤‘ í•˜ë‚˜ì™€ start-endê°€ ê°™ë‹¤ë©´ end í›„ë³´ì§€ë¡œ ì í•©í•¨ì„ ì•Œ ìˆ˜ ìˆë‹¤. 
+// ê·¸ëŸ¬ë‚˜ ì´ ë°©ë²•ì€ ê° í›„ë³´ì§€ì— ëŒ€í•´ì„œ ë‹¤ìµìŠ¤íŠ¸ë¼ë¥¼ ì„¸ ë²ˆ ì‚¬ìš©í•œë‹¤. 
+// ë©‹ì§„ í’€ì´ : ëª¨ë“  ê°„ì„  ê°€ì¤‘ì¹˜(ê±°ë¦¬ ê°’)ì„ ë‘ ë°°ë¡œ í•´ì£¼ê³ , must1-must2ì˜ ê°’ì„ -1 í•´ì¤€ë‹¤. 
+// ê·¸ëŸ¬ë©´ í›„ë³´ì§€ë“¤ì˜ ë‹¤ìµìŠ¤íŠ¸ë¼ ê²°ê³¼ê°’ ì¤‘ì—ì„œ í™€ìˆ˜ê°€ ë‚˜ì˜¨ ê²½ìš°ëŠ” must1-must2ë¥¼ ì§€ë‚œ í›„ë³´ë¼ê³  ë³¼ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë‹¤ìµìŠ¤íŠ¸ë¼ë¥¼ í•œ ë²ˆ ì‚¬ìš©í•œë‹¤.
 
 int main() {
 	cin.tie(NULL);
 	ios::sync_with_stdio(NULL);
 
-	int t; // Å×½ºÆ® ÄÉÀÌ½º ¼ö
+	int t; // í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ ìˆ˜
 	cin >> t;
 
 	while (t-- > 0) {
 		
-		int inter, road, goal; // °¢°¢ ±³Â÷·Î, ¸ñÀûÁö, ÈÄº¸
-		int start, must1, must2; // °¢°¢ Ãâ¹ßÁö, ¹İµå½Ã Áö³ª¾ß ÇÏ´Â ÈÄº¸ µÎ °³ 
+		int inter, road, goal; // ê°ê° êµì°¨ë¡œ, ëª©ì ì§€, í›„ë³´
+		int start, must1, must2; // ê°ê° ì¶œë°œì§€, ë°˜ë“œì‹œ ì§€ë‚˜ì•¼ í•˜ëŠ” í›„ë³´ ë‘ ê°œ 
 
-		vector<int>ans; // ´äÀ» ÀúÀå
-		vector<pair<int, int>> arr[MAX]; // arr[½ÃÀÛÁ¤Á¡]¿¡¼­ {´ÙÀ½ Á¤Á¡±îÁöÀÇ °Å¸®, ´ÙÀ½Á¤Á¡}
-		int dist[MAX]; // ÇØ´ç ÀÎµ¦½º Á¤Á¡±îÁö ´©ÀûµÈ °Å¸® °ª
-		vector<int>possible; // µµÂø ÈÄº¸Áö
+		vector<int>ans; // ë‹µì„ ì €ì¥
+		vector<pair<int, int>> arr[MAX]; // arr[ì‹œì‘ì •ì ]ì—ì„œ {ë‹¤ìŒ ì •ì ê¹Œì§€ì˜ ê±°ë¦¬, ë‹¤ìŒì •ì }
+		int dist[MAX]; // í•´ë‹¹ ì¸ë±ìŠ¤ ì •ì ê¹Œì§€ ëˆ„ì ëœ ê±°ë¦¬ ê°’
+		vector<int>possible; // ë„ì°© í›„ë³´ì§€
 
 		cin >> inter >> road >> goal;
 		cin >> start >> must1 >> must2;
 		int a, b, d;
 		for (int i = 0; i < road; i++) {
 			cin >> a >> b >> d;
-			d *= 2; // ¸ğµç °Å¸® °¡ÁßÄ¡¸¦ µÎ ¹è ÇÑ´Ù.
-			if ((a == must1 && b == must2) || (a == must2 && b == must1)) // must1-must2ÀÇ °¡ÁßÄ¡´Â Ãß°¡·Î -1 ÇØÁØ´Ù.
+			d *= 2; // ëª¨ë“  ê±°ë¦¬ ê°€ì¤‘ì¹˜ë¥¼ ë‘ ë°° í•œë‹¤.
+			if ((a == must1 && b == must2) || (a == must2 && b == must1)) // must1-must2ì˜ ê°€ì¤‘ì¹˜ëŠ” ì¶”ê°€ë¡œ -1 í•´ì¤€ë‹¤.
 				d -= 1;
-			arr[a].push_back({ d,b }); // ¾ç¹æÇâ µµ·ÎÀÌ¹Ç·Î
+			arr[a].push_back({ d,b }); // ì–‘ë°©í–¥ ë„ë¡œì´ë¯€ë¡œ
 			arr[b].push_back({ d,a });
 		}
 		int x;
 		for (int i = 0; i < goal; i++) {
 			cin >> x;
-			possible.push_back(x); // ÈÄº¸Áö ÀúÀå
+			possible.push_back(x); // í›„ë³´ì§€ ì €ì¥
 		}
-		// ¿©±â¼­ºÎÅÍ ´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò
-		for (int j = 0; j < goal; j++) { // ¸ğµç ÈÄº¸Áöµé¿¡ ´ëÇØ¼­
-			priority_queue<pair<int, int>>pq; // {°Å¸®°ª, Á¤Á¡}
+		// ì—¬ê¸°ì„œë¶€í„° ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜
+		for (int j = 0; j < goal; j++) { // ëª¨ë“  í›„ë³´ì§€ë“¤ì— ëŒ€í•´ì„œ
+			priority_queue<pair<int, int>>pq; // {ê±°ë¦¬ê°’, ì •ì }
 
-			for (int i = 0; i <= inter; i++) // ¸ğµç °Å¸®°ª INF·Î ÃÊ±âÈ­
+			for (int i = 0; i <= inter; i++) // ëª¨ë“  ê±°ë¦¬ê°’ INFë¡œ ì´ˆê¸°í™”
 				dist[i] = INF;
-			dist[start] = 0; // Ãâ¹ß ÁöÁ¡±îÁöÀÇ °Å¸®´Â 0
-			pq.push({ 0, start }); // Ãâ¹ßÁö Å¥¿¡ ³ÖÀ½
+			dist[start] = 0; // ì¶œë°œ ì§€ì ê¹Œì§€ì˜ ê±°ë¦¬ëŠ” 0
+			pq.push({ 0, start }); // ì¶œë°œì§€ íì— ë„£ìŒ
 
 			while (!pq.empty()) {
-				// ÃÖ¼Ò °Å¸®¸¦ ±¸ÇØ¾ß ÇÏ¹Ç·Î ³ÖÀ» ¶§ -·Î ³Ö°í »¬ ¶§µµ -·Î »«´Ù.
-				int beforeval = -pq.top().first; // ÇöÀç Á¤Á¡ÀÇ °Å¸® °¡ÁßÄ¡
-				int beforeloc = pq.top().second; // ÇöÀç Á¤Á¡
+				// ìµœì†Œ ê±°ë¦¬ë¥¼ êµ¬í•´ì•¼ í•˜ë¯€ë¡œ ë„£ì„ ë•Œ -ë¡œ ë„£ê³  ëº„ ë•Œë„ -ë¡œ ëº€ë‹¤.
+				int beforeval = -pq.top().first; // í˜„ì¬ ì •ì ì˜ ê±°ë¦¬ ê°€ì¤‘ì¹˜
+				int beforeloc = pq.top().second; // í˜„ì¬ ì •ì 
 				pq.pop();
 
-				for (int i = 0; i < arr[beforeloc].size(); i++) { // ÇöÀç Á¤Á¡¿¡ ¿¬°áµÈ ¸ğµç Á¤Á¡¿¡ ´ëÇØ¼­
+				for (int i = 0; i < arr[beforeloc].size(); i++) { // í˜„ì¬ ì •ì ì— ì—°ê²°ëœ ëª¨ë“  ì •ì ì— ëŒ€í•´ì„œ
 					int nextval = arr[beforeloc][i].first;
 					int nextloc = arr[beforeloc][i].second;
 
-					if (dist[nextloc] > dist[beforeloc] + nextval) {
-						dist[nextloc] = dist[beforeloc] + nextval;
-						pq.push({ -dist[nextloc], nextloc }); // ³ÖÀ» ¶§ -·Î ³ÖÀ½
+					if (dist[nextloc] > beforeval + nextval) {
+						dist[nextloc] = beforeval + nextval;
+						pq.push({ -dist[nextloc], nextloc }); // ë„£ì„ ë•Œ -ë¡œ ë„£ìŒ
 					}
 				}
 			}
-			if (dist[possible[j]] % 2 == 1 && dist[possible[j]] != INF) // °á°ú°¡ ¸¸¾à È¦¼öÀÌ¸é ´ä¿¡ ³ÖÀ½
+			if (dist[possible[j]] % 2 == 1 && dist[possible[j]] != INF) // ê²°ê³¼ê°€ ë§Œì•½ í™€ìˆ˜ì´ë©´ ë‹µì— ë„£ìŒ
 				ans.push_back(possible[j]);
-			sort(ans.begin(), ans.end()); // ¿À¸§Â÷¼ø Á¤·Ä
+			sort(ans.begin(), ans.end()); // ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
 		}
 		for (int i = 0; i < ans.size(); i++)
 			cout << ans[i] << " ";
