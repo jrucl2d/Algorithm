@@ -1,12 +1,12 @@
-#include <iostream> // πˆ∫Ì¡§∑ƒ
+#include <iostream> // Î≤ÑÎ∏îÏ†ïÎ†¨
 using namespace std;
 #define MAX 1000
 int v[1000];
 void sort(int* v, int size) {
-	int tmp; // ≈´ π›∫π «— π¯∏∂¥Ÿ ø¿∏•¬  ∏« ≥°ø° √÷¥Î∞™¿Ã ø¿∞‘ µ 
+	int tmp; // ÌÅ∞ Î∞òÎ≥µ Ìïú Î≤àÎßàÎã§ Ïò§Î•∏Ï™Ω Îß® ÎÅùÏóê ÏµúÎåÄÍ∞íÏù¥ Ïò§Í≤å Îê®
 	for (int i = size - 1; i > 0; i--) {
 		for (int j = 0; j < i; j++) {
-			if (v[j] > v[j + 1]) { // ±≥√º
+			if (v[j] > v[j + 1]) { // ÍµêÏ≤¥
 				tmp = v[j];
 				v[j] = v[j + 1];
 				v[j + 1] = tmp;
@@ -24,3 +24,22 @@ int main() {
 	for (int i = 0; i < n; i++)
 		cout << v[i] << endl;
 }
+//int cnt = 0; // ÏãúÍ∞Ñ Îã®Ï∂ï Í∞ÄÎä•Ìïú ÏΩîÎìú. cntÏ∂úÎ†•ÏúºÎ°ú ÏãúÍ∞Ñ Îã®Ï∂ïÏùÑ ÌôïÏù∏ Í∞ÄÎä•
+//void sort(int* v, int size) {
+//	int tmp; // ÌÅ∞ Î∞òÎ≥µ Ìïú Î≤àÎßàÎã§ Ïò§Î•∏Ï™Ω Îß® ÎÅùÏóê ÏµúÎåÄÍ∞íÏù¥ Ïò§Í≤å Îê®
+//	bool nope = false;
+//	for (int i = size - 1; i > 0; i--) {
+//		while (!nope) {
+//			nope = true;
+//			for (int j = 0; j < i; j++) {
+//				if (v[j] > v[j + 1]) { // ÍµêÏ≤¥
+//					tmp = v[j];
+//					v[j] = v[j + 1];
+//					v[j + 1] = tmp;
+//					nope = false;
+//				}
+//			}
+//			cnt++;
+//		}
+//	}
+//}
