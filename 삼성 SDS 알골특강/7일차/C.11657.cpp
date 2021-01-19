@@ -30,7 +30,7 @@ int main() {
             for (int k = 0; k < adj[j].size(); k++) {
                 int next_pos = adj[j][k].first;
                 int next_cost = adj[j][k].second;
-                // 음의 간선이 존재하므로 INF가 아닌 경우에만 파악한다.
+                // 현재 간선을 거쳐서 더 적은 cost인지 파악하므로 dist[j]가 INF여서는 안 된다
                 if (dist[j] != INF && dist[next_pos] > dist[j] + next_cost) {
                     dist[next_pos] = dist[j] + next_cost;
                     // 마지막 한 번 더 돌 때 길이가 줄어들면 사이클 존재
