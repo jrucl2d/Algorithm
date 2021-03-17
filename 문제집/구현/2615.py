@@ -5,99 +5,60 @@ for _ in range(19):
     tmp = list(map(int, input().rstrip().split()))
     arr.append(tmp)
 
-
-def found(x, y, num):
-    tx, ty = x, y
-    cnt = 0
-    # 세로
-    while True:
-        if x == 0:
-            break
-        if arr[x - 1][y] == num:
-            x -= 1
-        else:
-            break
-    while x < 19:
-        if arr[x][y] == num:
-            cnt += 1
-        x += 1
-    if cnt == 5:
-        return True
-    # 가로
-    x, y = tx, ty
-    cnt = 0
-    while True:
-        if y == 0:
-            break
-        if arr[x][y - 1] == num:
-            y -= 1
-        else:
-            break
-    while y < 19:
-        if arr[x][y] == num:
-            cnt += 1
-        y += 1
-    if cnt == 5:
-        return True
-    # 대각선
-    x, y = tx, ty
-    cnt = 0
-    while True:
-        if x == 0 or y == 0:
-            break
-        if arr[x - 1][y - 1] == num:
-            x -= 1
-            y -= 1
-        else:
-            break
-    while x < 19 and y < 19:
-        if arr[x][y] == num:
-            cnt += 1
-        x += 1
-        y += 1
-    if cnt == 5:
-        return True
-    return False
-
-
-def found2(x, y, num):
-    cnt = 0
-    while True:
-        if x == 19 or y == 0:
-            break
-        if arr[x + 1][y - 1] == num:
-            x += 1
-            y -= 1
-        else:
-            break
-    while x >= 0 and y < 19:
-        if arr[x][y] == num:
-            cnt += 1
-        x -= 1
-        y += 1
-    if cnt == 5:
-        return True
-    return False
-
-
-ans = None
-for i in range(14):
-    for j in range(14):
-        if arr[i][j] != 0:
-            if found(i, j, arr[i][j]):
-                ans = (arr[i][j], i + 1, j + 1)
-                break
-    if ans != None:
-        break
-if ans != None:
-    print(ans[0])
-    print(ans[1], ans[2])
-    exit(0)
-for i in range(18, 3, -1):
-    for j in range(14):
-        if arr[i][j] != 0:
-            if found2(i, j, arr[i][j]):
-                print(arr[i][j])
-                print(i + 1, j + 1)
-                exit(0)
+# |
+for i in range(19):
+    for j in range(15):
+        if arr[i][j] == 0:
+            continue
+        cnt = 0
+        num = arr[i][j]
+        for c in range(5):
+            if num == arr[i][j + c]:
+                cnt += 1
+        if cnt == 5 and (j == 14 or (j < 14 and arr[i][j + 5] != num)) and (j == 0 or (j > 0 and arr[i][j - 1] != num)):
+            print(num)
+            print(i + 1, j + 1)
+            exit(0)
+# -
+for i in range(15):
+    for j in range(19):
+        if arr[i][j] == 0:
+            continue
+        cnt = 0
+        num = arr[i][j]
+        for c in range(5):
+            if num == arr[i + c][j]:
+                cnt += 1
+        if cnt == 5 and (i == 14 or (i < 14 and arr[i + 5][j] != num)) and (i == 0 or (i > 0 and arr[i - 1][j] != num)):
+            print(num)
+            print(i + 1, j + 1)
+            exit(0)
+# /
+for i in range(4, 19):
+    for j in range(15):
+        if arr[i][j] == 0:
+            continue
+        cnt = 0
+        num = arr[i][j]
+        for c in range(5):
+            if num == arr[i - c][j + c]:
+                cnt += 1
+        if cnt == 5 and (i == 4 or j == 14 or (i > 4 and j < 14 and arr[i - 5][j + 5] != num)) and (i == 18 or j == 0 or (i < 18 and j > 0 and arr[i + 1][j - 1] != num)):
+            print(num)
+            print(i + 1, j + 1)
+            exit(0)
+# \
+for i in range(15):
+    for j in range(15):
+        if arr[i][j] == 0:
+            continue
+        cnt = 0
+        num = arr[i][j]
+        for c in range(5):
+            if num == arr[i + c][j + c]:
+                cnt += 1
+        if cnt == 5 and (i == 14 or j == 14 or (i < 14 and j < 14 and arr[i + 5][j + 5] != num)) and (i == 0 or j == 0 or (i > 0 and j > 0 and arr[i - 1][j - 1] != num)):
+            print(num)
+            print(i + 1, j + 1)
+            exit(0)
 print(0)
