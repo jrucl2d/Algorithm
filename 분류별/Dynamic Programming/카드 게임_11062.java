@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int[][][] dp;
+	static int[][] dp;
 	static int[] arr;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,9 +13,9 @@ public class Main {
 			int n = Integer.valueOf(br.readLine());
 			arr = new int[n];
 			st = new StringTokenizer(br.readLine(), " ");
-			dp = new int[2][1010][1010]; // 턴, 시작, 끝
+			dp = new int[1010][1010]; // 시작, 끝
 			for (int i = 0; i < n; i++) {
-			    arr[i] = Integer.valueOf(st.nextToken());
+				arr[i] = Integer.valueOf(st.nextToken());
 			}
 			sb.append(sol() + "\n");
 		}
@@ -28,20 +28,20 @@ public class Main {
 	static int foo(int my, int s, int e) {
 		if (s == e) {
 			if (my != 1) return 0;
-			dp[my][s][e] = arr[s];
-			return dp[my][s][e];
+			dp[s][e] = arr[s];
+			return dp[s][e];
 		}
-		if (dp[my][s][e] != 0) return dp[my][s][e];
+		if (dp[s][e] != 0) return dp[s][e];
 		int left = foo((my + 1) % 2, s + 1, e);
 		int right = foo((my + 1) % 2, s, e - 1);
-			
+
 		if (my == 1) {
-			dp[my][s][e] = Math.max(left + arr[s], right + arr[e]);
-			return dp[my][s][e];
+			dp[s][e] = Math.max(left + arr[s], right + arr[e]);
+			return dp[s][e];
 		}
-		// 상대가 최악의 선택을 할 때를 골라야 함
-		dp[my][s][e] = Math.min(left, right);
-		return dp[my][s][e];
+		// 상대가 최악의 선택을 할 때 == 내가 최선의 선택을 할 때
+		dp[s][e] = Math.min(left, right);
+		return dp[s][e];
 	}
 }
 
